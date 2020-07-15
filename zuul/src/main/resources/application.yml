@@ -1,0 +1,43 @@
+param:
+  mysql-ip: localhost
+  aop:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password:
+    datasource:
+      url: jdbc:mysql://localhost:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: maben123
+      driverClassName: com.mysql.jdbc.Driver
+server:
+  port: 9050
+
+spring:
+  application:
+    # 应用名称
+    name: gateway-master
+  datasource:
+    url: jdbc:mysql://${param.mysql-ip}:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: maben123
+    driverClassName: com.mysql.jdbc.Driver
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://maben:maben123@127.0.0.1:9000/eureka/
+
+logging:
+  level:
+    # log 级别
+    org.springframework.cloud.gateway: debug

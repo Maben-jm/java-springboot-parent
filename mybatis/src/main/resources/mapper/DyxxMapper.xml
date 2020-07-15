@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maben.mybatis.mapper.DyxxMapper">
+    <select id="getDyxxById" parameterType="String" resultType="dyJbxxPO">
+        select * from dy_jbxx where dy_id =#{id}
+    </select>
+</mapper>

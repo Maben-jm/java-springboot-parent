@@ -1,0 +1,76 @@
+#项目自定义参数
+param:
+  mysql-ip: localhost
+  redis-ip: localhost
+  aop:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password:
+    datasource:
+      url: jdbc:mysql://localhost:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: maben123
+      driverClassName: com.mysql.jdbc.Driver
+#项目配置
+server:
+  port: 9010
+  servlet:
+    context-path: /oauth
+
+spring:
+  application:
+    name: oauth
+  datasource:
+    url: jdbc:mysql://${param.mysql-ip}:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: maben123
+    driverClassName: com.mysql.jdbc.Driver
+    initial-size: 100
+    min-idle: 10
+    max-active: 200
+    # 配置获取连接等待超时的时间
+    max-wait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    time-between-eviction-runs-millis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    min-evictable-idle-time-millis: 300000
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    pool-prepared-statements: true
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    max-pool-prepared-statement-per-connection-size: 20
+    filters:
+    use-global-data-source-stat: false
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  redis:
+    host: ${param.redis-ip}
+    port: 6379
+#    password: xinleju
+#    database: 15
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://maben:maben123@127.0.0.1:9000/eureka/
+#开启驼峰式
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+management:
+  security:
+    enabled: false
+
+

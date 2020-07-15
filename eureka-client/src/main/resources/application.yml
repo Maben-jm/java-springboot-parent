@@ -1,0 +1,29 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /euraka-client
+spring:
+  application:
+    name: euraka-client
+  boot:
+    admin:
+      client:
+        url: http://localhost:8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+eureka:
+  client:
+    registry-fetch-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://maben:maben123@127.0.0.1:9000/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

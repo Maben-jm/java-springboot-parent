@@ -1,0 +1,82 @@
+#项目自定义参数
+param:
+  mysql-ip: localhost
+  aop:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password:
+    datasource:
+      url: jdbc:mysql://localhost:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: maben123
+      driverClassName: com.mysql.jdbc.Driver
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+server:
+  port: 9020
+  servlet:
+    context-path: /jsp
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8888
+  application:
+    name: jsp
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
+  security:
+    user:
+      name: maben
+      password: maben123
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  datasource:
+    url: jdbc:mysql://${param.mysql-ip}:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: maben123
+    driverClassName: com.mysql.jdbc.Driver
+#开启驼峰式
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+eureka:
+  client:
+    registry-fetch-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:9000/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+ribbon:
+  ReadTimeout: 30000
+  SocketTimeout: 30000
+  eureka:
+    enabled: true
+  eager-load:
+    enabled: true
+    clients: oauth
+
+# oauth2校验
+security:
+  oauth2:
+    resource:
+      id: jsp
+      user-info-uri: http://localhost:9050/oauth/check_token
+      prefer-token-info: false

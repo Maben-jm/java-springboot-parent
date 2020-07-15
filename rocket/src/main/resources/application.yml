@@ -1,0 +1,22 @@
+param:
+  server-ip: localhost
+
+server:
+  port: 9060
+spring:
+  application:
+    name: rocket
+rocketmq:
+  producer:
+    default:
+      groupName: rocket-default
+      namesrvAddr: ${param.server-ip}:9876
+      default: true
+    transaction:
+      groupName: rocket-group
+      namesrvAddr: ${param.server-ip}:9876
+      default: true
+  consumer:
+    groupName: ${spring.application.name}
+    namesrvAddr: ${param.server-ip}:9876
+

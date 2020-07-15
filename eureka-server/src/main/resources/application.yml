@@ -1,0 +1,29 @@
+#项目自定义参数
+param:
+  aop:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password:
+    datasource:
+      url: jdbc:mysql://localhost:3306/djxt?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: root
+      driverClassName: com.mysql.jdbc.Driver
+
+server:
+  port: 9000
+spring:
+  application:
+    name: euraka
+  security:
+    user:
+      name: maben
+      password: maben123
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:9000/eureka/
+    registerWithEureka: false
+    fetchRegistry: false
