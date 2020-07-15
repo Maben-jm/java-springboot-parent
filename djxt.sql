@@ -7,7 +7,7 @@ Source Host           : localhost:3306
 Source Database       : djxt
 
 Target Server Type    : MYSQL
-Target Server Version : 50723
+Target Server Version : 50723ccccc
 File Encoding         : 65001
 
 Date: 2020-06-08 14:44:39
