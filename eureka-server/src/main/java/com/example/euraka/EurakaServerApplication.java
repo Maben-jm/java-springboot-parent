@@ -10,10 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableEurekaServer
-public class EurakaApplication {
+public class EurakaServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EurakaApplication.class, args);
+        SpringApplication.run(EurakaServerApplication.class, args);
     }
 
     /**
